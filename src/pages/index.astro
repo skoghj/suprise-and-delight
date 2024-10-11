@@ -24,10 +24,21 @@ import "../styles/tobii.min.css";
 
     <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 150) ? true : false" :class="{ 'bg-[#dd4415]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out p-0 m-0">
       <section class="max-w-xl mx-auto pt-32 prose" id="titel">
-        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 150) ? true : false" :class="{ 'text-[#1c2572]': scroll, 'text-black': !scroll }" class="text-6xl md:text-9xl text-center rozha-one-regular">Uperfekt er perfekt</h2>
+        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 150) ? true : false" :class="{ 'text-[#1c2572]': scroll, 'text-black': !scroll }" class="text-6xl md:text-9xl text-center rozha-one-regular">
+          <span class="cssanimation leRotateInLeft sequence">Uperfekt</span> er <br />
+          <span class="cssanimation leRotateInRight sequence">perfekt</span>
+        </h2>
       </section>
-      <section class="max-w-4xl mx-auto pt-32 pb-32 random-rotate-video" id="videoonhover" x-data>
-        <video width="1280" height="960" autoplay muted loop x-ref="hovervideo" @mouseenter="$refs.hovervideo.play()" @mouseleave="$refs.hovervideo.pause()">
+
+      <section class="max-w-4xl mx-auto pt-32 pb-32 random-rotate-video" id="videoonhover" x-data="{ 
+           playVideo() { 
+             $refs.hovervideo.play(); 
+           },
+           pauseVideo() { 
+             $refs.hovervideo.pause(); 
+           } 
+         }">
+        <video width="1280" height="960" autoplay loop x-ref="hovervideo" @mouseenter="playVideo()" @mouseleave="pauseVideo()">
           <source src="pierre-falcke-video.mp4" type="video/mp4" />
         </video>
       </section>
@@ -35,17 +46,17 @@ import "../styles/tobii.min.css";
 
     <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'bg-[#2d37c6] text-white': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out p-0 m-0">
       <section class="max-w-xl mx-auto prose" id="manchet">
-        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'text-[#f7f7f7]': scroll, 'text-black': !scroll }" class="text-xl pt-32">Pierre Falcke. Du ved formentligt ikke hvem han er. Men indtil for kort tid siden, så du hans værker et par gange om dagen, hver dag, året rundt. Pierre Falcke var en af verdens bedst sælgende stock-fotografer, og han solgte over 2 millioner fotos om året. Men Pierre kunne ikke drømme om at bruge sine egne fotos - faktisk kan han ikke fordrage sit eget arbejde.</p>
+        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'text-[#f7f7f7]': scroll, 'text-black': !scroll }" class="text-xl pt-32 slideLeft">Pierre Falcke. Du ved formentligt ikke hvem han er. Men indtil for kort tid siden, så du hans værker et par gange om dagen, hver dag, året rundt. Pierre Falcke var en af verdens bedst sælgende stock-fotografer, og han solgte over 2 millioner fotos om året. Men Pierre kunne ikke drømme om at bruge sine egne fotos - faktisk kan han ikke fordrage sit eget arbejde.</p>
         <div>
           <a href="pierre.jpeg" class="lightbox">
-            <Image src={pierre} alt="" class="my-0 hover:image-hover hover:flip-horizontal-bottom" />
+            <Image src={pierre} alt="" class="my-0 hover:image-hover hover:flip-horizontal-bottom mereanimate" />
             <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'text-[#f7f7f7]': scroll, 'text-black': !scroll }">Pierre Falcke, selvportræt</figcaption>
           </a>
         </div>
-        <div class="pb-32">
-          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700">Pierre sælger 2 millioner fotos om året</p>
-          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700">Det svarer til én fotolicens hvert 16. sekund</p>
-          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700">Du ser hans fotos ca. 2 gange om dagen</p>
+        <div class="pb-32" id="stagger">
+          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Pierre sælger 2 millioner fotos om året</p>
+          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Det svarer til én fotolicens hvert 16. sekund</p>
+          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Du ser hans fotos ca. 2 gange om dagen</p>
         </div>
       </section>
     </section>
@@ -89,15 +100,18 @@ import "../styles/tobii.min.css";
           <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Han søgte inspiration i analog fotografering, i Lomo-bevægelsen, Glitch art og polaroid fotografering, og begyndte stille og roligt at skabe sig en ny stil - en stil med fokus på det uperfekte, og hvor der er et uforudsigeligt element i det at tage billeder.</p>
         </div>
         <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto my-8 items-center prose">
-          <div>
+          <div id="lydeffekt" x-data>
+            <audio x-ref="lydeffekt">
+              <source src="A_Stroll_Alone_Everet_Almond.mp3" type="audio/mpeg" />
+            </audio>
             <a href="glitch.jpg" class="lightbox">
-              <Image src={glitch} alt="" class="my-0" />
+              <Image src={glitch} alt=" " class="my-0 timelineanimation" id="timelineanimationimage" @click="$refs.lydeffekt.play()" />
               <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Glitch kunst</figcaption>
             </a>
           </div>
           <div>
             <a href="lomo-smena-17.jpg" class="lightbox">
-              <Image src={smena} alt="" class="my-0" />
+              <Image src={smena} alt="" class="my-0 timelineanimation2" id="timelineanimationimage2" />
               <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Dobbelteksponering med Smena</figcaption>
             </a>
           </div>
@@ -156,7 +170,7 @@ import "../styles/tobii.min.css";
           <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Som Pierre forklarer det: <span class="italic">“Nu kan jeg leve livet igen. Jeg føler mig frisk. Jeg føler mig fri. Jeg føler mig genfødt.”</span></p>
           <div>
             <a href="lidtifem-pierre-falcke.jpg" class="lightbox" alt="">
-              <Image src={lidtifem} alt="" class="my-0" />
+              <Image src={lidtifem} alt="" class="my-0 inviewreturn" />
               <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Lidt i fem - ny bog af Pierre Falcke</figcaption>
             </a>
           </div>
@@ -164,31 +178,92 @@ import "../styles/tobii.min.css";
       </section>
     </section>
   </article>
+
+  <script is:inline src="/tobii.min.js"></script>
+
+  <script defer>
+    const tobii = new Tobii();
+
+    //Video hover rotation////////////////////////////////////////////////
+    const video = document.querySelector(".random-rotate-video");
+
+    video.addEventListener("mouseover", function () {
+      // Generate a random angle between -5 and 5 degrees
+      const randomAngle = Math.random() * 10 - 5;
+
+      // Apply the random rotation
+      video.style.transform = `rotate(${randomAngle}deg)`;
+    });
+
+    video.addEventListener("mouseleave", function () {
+      // Reset the rotation when hover ends
+      video.style.transform = "rotate(0deg)";
+    });
+  </script>
+
+  <script>
+    //Progress bar animation///////////////////////////////////////////////
+    import { inView, animate, scroll, timeline } from "motion";
+    scroll(animate(".progress", { strokeDasharray: ["0,1", "1,1"] }));
+
+    //entrance animation//////////////////////////////////////////////////
+    animate("body", { opacity: [0, 1] }, { duration: 1 });
+
+    //entrance animation med lidt mere konplekse///////////////////////////
+    animate(".mereanimate", { opacity: [0, 1, 0.8, 1], scale: [0.3, 1], y: [0, -10, 0, 10, 0], x: [0, -20, 0, 20, 0], rotate: [0, 360], filter: ["blur(0px)", "blur(5px)", "blur(0px)"] }, { delay: 1.5, duration: 3, direction: "alternate", repeat: Infinity, easing: "ease-in-out" });
+
+    //inview animation////////////////////////////////////////////
+    const slideLeft = document.querySelector(".slideLeft");
+    inView(slideLeft, ({ target }) => {
+      target.classList.add("animate__animated", "animate__rollIn", "animate__delay-1s");
+    });
+
+    // stagger animation////////////////////////////////////////////
+    inView("#stagger", () => {
+      // 모든 staggeranimation 클래스 요소에 대해 애니메이션 적용
+      const elements = document.querySelectorAll(".staggeranimation");
+      elements.forEach((element, index) => {
+        animate(
+          element,
+          { opacity: [0, 1] }, // 애니메이션 속성
+          {
+            delay: index * 0.5, // 요소마다 지연 시간 설정
+            duration: 0.5, // 애니메이션 지속 시간
+          }
+        );
+      });
+    });
+
+    /* Timeline animation */ ///////////////////////////////////////////////
+    inView("#timelineanimationimage", () => {
+      const timelineanimation = [
+        [".timelineanimation", { transform: "translateX(-100%)" }, { duration: 0.5 }],
+        [".timelineanimation", { transform: "translateX(0)" }, { duration: 0.5 }],
+        [".timelineanimation", { filter: "blur(5px)" }, { duration: 0.2 }],
+        [".timelineanimation", { transform: "scale(0.5)" }, { duration: 0.5 }],
+        [".timelineanimation", { filter: "blur(0px)" }, { duration: 0.2 }],
+        [".timelineanimation", { transform: "scale(1)" }, { duration: 1 }],
+      ];
+      timeline(timelineanimation);
+    });
+    inView("#timelineanimationimage2", () => {
+      const timelineanimation = [
+        [".timelineanimation2", { transform: "translateX(100%)" }, { duration: 0.5 }],
+        [".timelineanimation2", { transform: "translateX(0)" }, { duration: 0.5 }],
+        [".timelineanimation2", { filter: "blur(5px)" }, { duration: 0.2 }],
+        [".timelineanimation2", { transform: "scale(0.5)" }, { duration: 0.5 }],
+        [".timelineanimation2", { filter: "blur(0px)" }, { duration: 0.2 }],
+        [".timelineanimation2", { transform: "scale(1)" }, { duration: 1 }],
+      ];
+      timeline(timelineanimation);
+    });
+
+    /* inView & return */
+    inView(".inviewreturn", ({ target }) => {
+      animate(target, { rotate: [180, 0] }, { delay: 1, duration: 2 });
+      return () => {
+        animate(target, { rotate: 180 });
+      };
+    });
+  </script>
 </MainLayout>
-<script is:inline src="/tobii.min.js"></script>
-
-<script defer>
-  import { animate, scroll } from "motion";
-
-  scroll(animate(".progress", { strokeDasharray: ["0,1", "1,1"] }));
-
-  //progressbar//////////////////////////////////////////////////////////
-
-  const tobii = new Tobii();
-
-  //Video hover rotation////////////////////////////////////////////////
-  const video = document.querySelector(".random-rotate-video");
-
-  video.addEventListener("mouseover", function () {
-    // Generate a random angle between -5 and 5 degrees
-    const randomAngle = Math.random() * 10 - 5;
-
-    // Apply the random rotation
-    video.style.transform = `rotate(${randomAngle}deg)`;
-  });
-
-  video.addEventListener("mouseleave", function () {
-    // Reset the rotation when hover ends
-    video.style.transform = "rotate(0deg)";
-  });
-</script>

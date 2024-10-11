@@ -76,7 +76,68 @@
   }
 
   .progress {
-    stroke: black;
+    stroke: rgb(0, 0, 0);
     stroke-dasharray: 0, 1;
+  }
+
+  /*custome cursor*/
+  p,
+  video,
+  img,
+  h2 {
+    @apply cursor-handcursor;
+  }
+
+  .rotate-in-tr {
+    animation: rotate-in-tr 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  .leRotateInLeft span {
+    animation-name: leRotateInLeft;
+  }
+  @keyframes leRotateInLeft {
+    from {
+      transform: rotate(-180deg) translateX(150px);
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .leRotateInRight span {
+    animation-name: leRotateInRight;
+  }
+  @keyframes leRotateInRight {
+    from {
+      transform: rotate(-180deg) translateX(-150px);
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .vibrate-1 {
+    animation: vibrate-1 0.3s linear infinite both;
+  }
+
+  @keyframes vibrate-1 {
+    0% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(2px, -2px);
+    }
+    100% {
+      transform: translate(0);
+    }
   }
 }
