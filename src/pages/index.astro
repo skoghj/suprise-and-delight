@@ -12,258 +12,396 @@ import smena from "../assets/images/lomo-smena-17.jpg";
 import overouticm from "../assets/images/over-out-icm.jpeg";
 import pierre from "../assets/images/pierre.jpeg";
 import tyndfilm from "../assets/images/tynd-film.jpg";
+import camera1 from "../assets/images/camera1.webp";
+import filme from "../assets/images/filme.webp";
+import filme2 from "../assets/images/filme2.webp";
+import filme3 from "../assets/images/filme3.webp";
+import filme4 from "../assets/images/filme4.webp";
+import filmrolle2 from "../assets/images/filmrolle2.webp";
+import pic1 from "../assets/images/pic_1.webp";
+import pic2 from "../assets/images/pic_2.webp";
+import pic3 from "../assets/images/pic_3.webp";
+import pic4 from "../assets/images/pic_4.webp";
+import pic5 from "../assets/images/pic_5.webp";
+import pic6 from "../assets/images/pic_6.webp";
 import "../styles/tobii.min.css";
 ---
 
 <MainLayout title="Surprise & delight">
-  <article class="p-4 md:p-0">
+  <article class="p-4 md:p-0 z-50">
+    <!--progressbar-->
     <svg width="100" height="100" viewBox="0 0 100 100" class="fixed top-5 left-5 rotate-[-90deg]">
       <circle cx="50" cy="50" r="30" pathLength="1" class="bg"></circle>
       <circle cx="50" cy="50" r="30" pathLength="1" class="progress"></circle>
     </svg>
 
-    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 150) ? true : false" :class="{ 'bg-[#dd4415]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out p-0 m-0">
-      <section class="max-w-xl mx-auto pt-32 prose" id="titel">
-        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 150) ? true : false" :class="{ 'text-[#1c2572]': scroll, 'text-black': !scroll }" class="text-6xl md:text-9xl text-center rozha-one-regular">
-          <span class="cssanimation leRotateInLeft sequence">Uperfekt</span> er <br />
+    <!--den første section -->
+    <section x-data="{ 
+         scroll: false, 
+         playmusic() { $refs.hoveraudio.play() }, 
+         pausemusic() { $refs.hoveraudio.pause() }
+       }" @scroll.window="scroll = (window.pageYOffset > 150) ? true : false" :class="{ 'bg-[#dd4415]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out p-0 m-0">
+      <div class="max-w-6xl mx-auto pt-32" id="lydeffekt">
+        <!-- Tekstindhold med farveskift baseret på scroll -->
+        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 150) ? true : false" :class="{ 'text-[#1c2572]': scroll, 'text-black': !scroll }" class="text-6xl md:text-9xl text-center rozha-one-regular" @mouseenter="$refs.lydeffekt.play()" @mouseleave="$refs.lydeffekt.pause()">
+          <audio x-ref="lydeffekt">
+            <source src="bubblepop.mp3" type="audio/mpeg" />
+          </audio>
+
+          <span class="cssanimation leRotateInLeft sequence">Uperfekt</span>
+          <br />
+          er <br />
           <span class="cssanimation leRotateInRight sequence">perfekt</span>
         </h2>
-      </section>
 
-      <section class="max-w-4xl mx-auto pt-32 pb-32 random-rotate-video" id="videoonhover" x-data="{ 
-           playVideo() { 
-             $refs.hovervideo.play(); 
-           },
-           pauseVideo() { 
-             $refs.hovervideo.pause(); 
-           } 
-         }">
-        <video width="1280" height="960" autoplay loop x-ref="hovervideo" @mouseenter="playVideo()" @mouseleave="pauseVideo()">
-          <source src="pierre-falcke-video.mp4" type="video/mp4" />
-        </video>
-      </section>
-    </section>
-
-    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'bg-[#2d37c6] text-white': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out p-0 m-0">
-      <section class="max-w-xl mx-auto prose" id="manchet">
-        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'text-[#f7f7f7]': scroll, 'text-black': !scroll }" class="text-xl pt-32 slideLeft">Pierre Falcke. Du ved formentligt ikke hvem han er. Men indtil for kort tid siden, så du hans værker et par gange om dagen, hver dag, året rundt. Pierre Falcke var en af verdens bedst sælgende stock-fotografer, og han solgte over 2 millioner fotos om året. Men Pierre kunne ikke drømme om at bruge sine egne fotos - faktisk kan han ikke fordrage sit eget arbejde.</p>
-        <div>
-          <a href="pierre.jpeg" class="lightbox">
-            <Image src={pierre} alt="" class="my-0 hover:image-hover hover:flip-horizontal-bottom mereanimate" />
-            <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'text-[#f7f7f7]': scroll, 'text-black': !scroll }">Pierre Falcke, selvportræt</figcaption>
-          </a>
+        <!-- video element til musik -->
+        <div class="max-w-9xl mx-auto pt-32 pb-32 random-rotate-video" id="videoonhover" x-data="{playVideo() {$refs.hovervideo.play();},pauseVideo() {$refs.hovervideo.pause();}}">
+          <video autoplay muted loop x-ref="hovervideo" @mouseenter="playVideo()" @mouseleave="pauseVideo(),pausemusic()" @click="$refs.hoveraudio.play()"> <source src=" pierre-falcke-video.mp4" type="video/mp4" /></video>
+          <p class="font-bold">Klik video for at høre musik</p>
         </div>
-        <div class="pb-32" id="stagger">
-          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Pierre sælger 2 millioner fotos om året</p>
-          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Det svarer til én fotolicens hvert 16. sekund</p>
-          <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Du ser hans fotos ca. 2 gange om dagen</p>
-        </div>
-      </section>
-    </section>
-
-    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 2500) ? true : false" :class="{ 'bg-[#f8d01c]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out py-32 m-0">
-      <section class="max-w-4xl mx-auto pt-32 prose border border-double border-black p-8" data-color="violet" id="hvaderstockfotos">
-        <h2 class="text-2xl">Hvad er stock-fotos?</h2>
-        <div class="grid grid-cols-3 gap-4">
-          <div>
-            <p>Stock-fotos er billeder, der kan købes fra et foto-website. De bruges af aviser, til markedsføring og som indhold på websites. En licens til at bruge et foto koster typisk mellem 10 og 100 kroner, alt afhængig af hvad de skal bruges til.</p>
-            <Image src={arbejde} alt="" />
-          </div>
-          <div>
-            <p>Stock-fotos bliver ofte kritiseret for at være uden sjæl - det er de der billeder af en læge i hvid kittel med stetoskop om halsen på en meget hvid baggrund eller en meget glad dame fra virksomhedens salgs- eller supportafdeling.</p>
-            <Image src={apoteket} alt="" />
-          </div>
-          <div>
-            <p>Stock-fotos har eksisteret i mange år. Før branchen blev digital, tilbød stock-foto virksomhederne billedmapper, der kunne bestilles fra. Men stock-foto branchen var én af de tidlige til at blive fuldt digitaliseret.</p>
-            <Image src={godtarbejde} alt="" />
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 3500) ? true : false" :class="{ 'bg-[#4f1093]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out pb-32 m-0">
-      <section class="max-w-xl mx-auto pt-32 prose" data-color="indigo" id="pierresberoemmelse">
-        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 3500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-4xl">Pierres berømmelse</h2>
-        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 3500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierres interesse for foto startede som ganske ung - som 10-årig fik han sin fars gamle Rollei-kamera, og begyndte at skyde løs. Det var før den digitale revolution, så alle Pierres lommepenge blev brugt på filmruller og fremkaldelse af film. Pierre fortsatte med at fotografere på film op gennem gymnasietiden.</p>
-        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 3500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierre over til digital fotografering i starten af 2000’erne, da han begyndte at studere fotografisk kommunikation på DMJX. Her åbnede en ny verden sig: Reklamefotografering i studie, lyssætning og manipulering af billeder i Photoshop blev hans nye stil.</p>
-        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 3500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">På det tidspunkt var stock-foto industrien i starten af en revolution: De første online stock-foto websites begyndte at komme på markedet, men de store, etablerede spillere på markedet holdt lidt igen. Pierre så det for sig: “Om ganske få år er hele branchen digital, og dem der ikke hopper med på den digitale vogn, lukker.”</p>
-        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 3500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Så Pierre gav sig selv en udfordring: At blive landets bedst sælgende stock-fotograf. Pierre lejede et gammelt, billigt erhvervslokale i Ishøj industri, fik fløjet billige skuespillere ind fra Polen og Baltikum, og fotograferede 10 timer om dagen.</p>
-        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 3500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierres profeti om stock-foto branchen holdt stik. Pierre var allerede en af landets bedst sælgende stock-fotografer, før han blev færdig med studiet på DMJX.</p>
-      </section>
-    </section>
-
-    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'bg-[#18a0da]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out pb-32 m-0">
-      <section id="enskillevej" data-color="blue">
-        <div class="max-w-xl mx-auto pt-32 prose">
-          <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-4xl">En skillevej</h2>
-          <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierre tjente godt det følgende årti. Men stille og roligt begyndte billederne også at give ham kvalme. Han kunne ikke holde sit eget arbejde ud, og måtte finde et modsvar til alle de blankpolerede fotos. Noget han kunne lave med stolthed. Pierre bestluttede sig for at droppe stock-fotos, og vende tilbage til rødderne.</p>
-          <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Han søgte inspiration i analog fotografering, i Lomo-bevægelsen, Glitch art og polaroid fotografering, og begyndte stille og roligt at skabe sig en ny stil - en stil med fokus på det uperfekte, og hvor der er et uforudsigeligt element i det at tage billeder.</p>
-        </div>
-        <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto my-8 items-center prose">
-          <div id="lydeffekt" x-data>
-            <audio x-ref="lydeffekt">
-              <source src="A_Stroll_Alone_Everet_Almond.mp3" type="audio/mpeg" />
-            </audio>
-            <a href="glitch.jpg" class="lightbox">
-              <Image src={glitch} alt=" " class="my-0 timelineanimation" id="timelineanimationimage" @click="$refs.lydeffekt.play()" />
-              <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Glitch kunst</figcaption>
-            </a>
-          </div>
-          <div>
-            <a href="lomo-smena-17.jpg" class="lightbox">
-              <Image src={smena} alt="" class="my-0 timelineanimation2" id="timelineanimationimage2" />
-              <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Dobbelteksponering med Smena</figcaption>
-            </a>
-          </div>
-        </div>
-        <div class="max-w-xl mx-auto prose">
-          <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierre tog det endda så vidt at han ikke kun droppede at tage stock-fotos. Han fjernede også alle stock-fotos fra de tjenester, han solgte sine fotos hos. Han gik fra at være en god forretningsdrivende til at blive en vaskeægte boheme-type på rekordtid.</p>
-        </div>
-      </section>
-    </section>
-
-    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'bg-[#d91ca4]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out py-32 m-0">
-      <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'border-[#ffffff]': scroll, 'border-black': !scroll }" class="max-w-4xl mx-auto py-32 prose border border-double p-8" id="fotoeksperimenter" data-color="green">
-        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-2xl">Fotoeksperimenter</h2>
-        <div class="grid grid-cols-3 gap-4">
-          <div x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">
-            <h3 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-xl">Analog fotografering</h3>
-            <p>Fotografering med gode, gammeldags filmruller. Analog fotografering stiger for tiden i popularitet, specielt blandt unge, og prisen på filmruller og vintage-kameraer skyder i vejret. Mange fotografer synes at film-fotografering er mere ægte har mere “sjæl.” Analog fotografering er langsommmere, hvert enkelt billede koster penge, og man bliver nødt til at overveje motiv og lys grundigere før der skydes - tænk før du trykker.</p>
-            <p>Analog fotografering kan gå galt mange steder i processen, og det giver også mulighed for at eksperimentere med “det uperfekte og uforudsigelige i processen.” Man kan f.eks. skyde på for gamle filmruller, arbejde med forskellige teknikker som “lens whacking” og filtre/ting foran objektivet, og man kan pille ved de kemiske processer under fremkaldelse af filmen.</p>
-          </div>
-          <div x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">
-            <h3 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-xl">Glitch art</h3>
-            <p>Når der sker en teknisk fejl i et medie/en kommunikationskanal kaldes det en glitch. Glitch art går ud på at dyrke fejlene for at skabe kunst. En meget typisk glitch er små analoge eller digitale fejl i farvegengivelsen af billeder.</p>
-            <p></p>
-          </div>
-          <div x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">
-            <h3 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-xl">Lomografi</h3>
-            <p>Et lomografi er egentlig bare et fotografi skudt uden videre omtanke, og med noget foto-udstyr af ret alternativ kvalitet. Lomografier skydes ofte på gode, gammeldags filmruller, men kan også skyde digitalt.</p>
-            <p>Det kan måske lyde lidt anti-fotograf-agtigt. Men en del foto-entusiaster dyrker den slags, og ser det som en foto-genre eller endda en livsstil.</p>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'bg-[#13a44d]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out py-32 m-0">
-      <section id="nybegyndelse">
-        <div class="max-w-xl mx-auto prose">
-          <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-4xl">En ny begyndelse</h2>
-          <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Men Pierre er glad for sin beslutning. Indkomsten er lavere nu, men han har stadig lidt penge på kontoen, og studerer nu kunstfotografering på fotoskolen Fatamorgana. Han glæder sig over hver dags kunstneriske eksperimenter, og er for første gang i sit liv rigtig stolt af sit arbejde. Som Pierre selv udtrykker det: <span class="italic">“Det interessante ligger i fejlen. Et foto med masser af fejl er interessant. Jeg eksperimenterer med udstyr og teknik, og skaber nye visuelle udtryk. Det uperfekte er perfekt.”</span></p>
-        </div>
-        <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto my-8 items-center prose">
-          <div>
-            <a href="over-out-icm.jpeg" class="lightbox">
-              <Image src={overouticm} alt="" class="my-0" />
-              <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Overeksponeret og ude af fokus</figcaption>
-            </a>
-          </div>
-          <div>
-            <a href="tynd-film.jpg" class="lightbox">
-              <Image src={tyndfilm} alt="" class="my-0" />
-              <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Tynd film</figcaption>
-            </a>
-          </div>
-        </div>
-        <div class="max-w-xl mx-auto my-32 prose">
-          <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Karrieren begynder også så småt også at gå den rette vej: Pierre er begyndt at sælge fotokunst på nettet, og har udgivet sin første foto-bog med titlen “Lidt i fem,” som er en fotografisk odyssé om at slæbe en brandert hjem i de tidlige morgentimer. I forbindelse med udgivelsen af bogen, har han en udstilling på vej i det Kongelige Biblioteks fotoudstilling.</p>
-          <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Som Pierre forklarer det: <span class="italic">“Nu kan jeg leve livet igen. Jeg føler mig frisk. Jeg føler mig fri. Jeg føler mig genfødt.”</span></p>
-          <div>
-            <a href="lidtifem-pierre-falcke.jpg" class="lightbox" alt="">
-              <Image src={lidtifem} alt="" class="my-0 inviewreturn" />
-              <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Lidt i fem - ny bog af Pierre Falcke</figcaption>
-            </a>
-          </div>
-        </div>
-      </section>
+      </div>
+      <!-- Audio element til musik -->
+      <audio x-ref="hoveraudio" preload="auto">
+        <source src="A_Stroll_Alone_Everet_Almond.mp3" type="audio/mp3" />
+      </audio>
     </section>
   </article>
 
-  <script is:inline src="/tobii.min.js"></script>
+  <!--anden section -->
+  <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'bg-[#2d37c6] text-white': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out p-0 m-0">
+    <section class="max-w-xl mx-auto prose" id="manchet">
+      <!--tekstindhold inview animation slideLeft-->
+      <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'text-[#f7f7f7]': scroll, 'text-black': !scroll }" class="text-xl pt-32 slideLeft">Pierre Falcke. Du ved formentligt ikke hvem han er. Men indtil for kort tid siden, så du hans værker et par gange om dagen, hver dag, året rundt. Pierre Falcke var en af verdens bedst sælgende stock-fotografer, og han solgte over 2 millioner fotos om året. Men Pierre kunne ikke drømme om at bruge sine egne fotos - faktisk kan han ikke fordrage sit eget arbejde.</p>
+      <div id="lydeffekt" x-data>
+        <audio x-ref="lydeffekt">
+          <source src="pop.mp3" type="audio/mpeg" />
+        </audio>
 
-  <script defer>
-    const tobii = new Tobii();
+        <a href="pierre.jpeg" class="lightbox">
+          <!--entrance animation med lidt mere kompleks -->
+          <Image src={pierre} alt="Pierre Falcke" class="my-0 hover:image-hover hover:flip-horizontal-bottom mereanimate" @click="$refs.lydeffekt.play()" />
+          <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 1000) ? true : false" :class="{ 'text-[#f7f7f7]': scroll, 'text-black': !scroll }">Pierre Falcke, selvportræt</figcaption>
+        </a>
+      </div>
 
-    //Video hover rotation////////////////////////////////////////////////
-    const video = document.querySelector(".random-rotate-video");
+      <!--stagger animation (delay)-->
+      <div class="pb-32" id="stagger">
+        <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Pierre sælger 2 millioner fotos om året</p>
+        <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Det svarer til én fotolicens hvert 16. sekund</p>
+        <p class="text-2xl italic text-center bg-black p-8 text-white hover:bg-orange-700 staggeranimation">Du ser hans fotos ca. 2 gange om dagen</p>
+      </div>
+    </section>
+  </section>
 
-    video.addEventListener("mouseover", function () {
-      // Generate a random angle between -5 and 5 degrees
-      const randomAngle = Math.random() * 10 - 5;
+  <!--3. section med sticky tekstboks -->
+  <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 2500) ? true : false" :class="{ 'bg-[#f8d01c]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out m-0">
+    <section class="max-w-4xl mx-auto flex flex-col py-32 text-[16px]" id="hvaderstockfotos">
+      <h2 class="text-5xl font-bold pb-10 rozha-one-regular">Hvad er stock-fotos?</h2>
+      <div class="flex flex-col items-center w-100">
+        <div class="flex items-center h-screen w-full bg-cover bg-center sticky top-0" style="background-image: url('/arbejde.jpg')">
+          <div class="w-3/4 lg:w-96 lg:mx-auto p-8 bg-slate-50/80 stickyparallax1">
+            <p>Stock-fotos er billeder, der kan købes fra et foto-website. De bruges af aviser, til markedsføring og som indhold på websites. En licens til at bruge et foto koster typisk mellem 10 og 100 kroner, alt afhængig af hvad de skal bruges til.</p>
+          </div>
+        </div>
+        <div class="flex items-center h-screen w-full bg-cover bg-center sticky top-0" style="background-image: url('/apoteket.jpg')">
+          <div class="w-3/4 lg:w-96 lg:mx-auto p-8 bg-slate-50/80 stickyparallax1">
+            <p>Stock-fotos bliver ofte kritiseret for at være uden sjæl - det er de der billeder af en læge i hvid kittel med stetoskop om halsen på en meget hvid baggrund eller en meget glad dame fra virksomhedens salgs- eller supportafdeling.</p>
+          </div>
+        </div>
+        <div class="flex items-center h-screen w-full bg-cover bg-center sticky top-0" style="background-image: url('/godt-arbejde.jpg')">
+          <div class="w-3/4 lg:w-96 lg:mx-auto p-8 bg-slate-50/80 stickyparallax1">
+            <p>Stock-fotos har eksisteret i mange år. Før branchen blev digital, tilbød stock-foto virksomhederne billedmapper, der kunne bestilles fra. Men stock-foto branchen var én af de tidlige til at blive fuldt digitaliseret.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
 
-      // Apply the random rotation
-      video.style.transform = `rotate(${randomAngle}deg)`;
-    });
+  <!--4. section mange elementerinview -->
+  <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4700) ? true : false" :class="{ 'bg-[#4f1093]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out pb-10 m-0">
+    <section class="max-w-xl mx-auto pt-32 prose" id="pierresberoemmelse">
+      <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4700) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-4xl">Pierres berømmelse</h2>
 
-    video.addEventListener("mouseleave", function () {
-      // Reset the rotation when hover ends
-      video.style.transform = "rotate(0deg)";
-    });
-  </script>
+      <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4700) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierres interesse for foto startede som ganske ung - som 10-årig fik han sin fars gamle Rollei-kamera, og begyndte at skyde løs. Det var før den digitale revolution, så alle Pierres lommepenge blev brugt på filmruller og fremkaldelse af film. Pierre fortsatte med at fotografere på film op gennem gymnasietiden.</p>
 
-  <script>
-    //Progress bar animation///////////////////////////////////////////////
-    import { inView, animate, scroll, timeline } from "motion";
-    scroll(animate(".progress", { strokeDasharray: ["0,1", "1,1"] }));
+      <div class="sticky mangeelementerinview grid grid-cols-4 pt-10 max-w-xl mx-auto">
+        <Image src={camera1} alt="gallery" class="mangeelementer2 col-start-1 col-end-3" />
+        <Image src={filme} alt="gallery" class="mangeelementer1" />
+        <Image src={filme3} alt="gallery" class="mangeelementer3" />
+      </div>
 
-    //entrance animation//////////////////////////////////////////////////
-    animate("body", { opacity: [0, 1] }, { duration: 1 });
+      <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4700) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierre over til digital fotografering i starten af 2000’erne, da han begyndte at studere fotografisk kommunikation på DMJX. Her åbnede en ny verden sig: Reklamefotografering i studie, lyssætning og manipulering af billeder i Photoshop blev hans nye stil.</p>
 
-    //entrance animation med lidt mere konplekse///////////////////////////
-    animate(".mereanimate", { opacity: [0, 1, 0.8, 1], scale: [0.3, 1], y: [0, -10, 0, 10, 0], x: [0, -20, 0, 20, 0], rotate: [0, 360], filter: ["blur(0px)", "blur(5px)", "blur(0px)"] }, { delay: 1.5, duration: 3, direction: "alternate", repeat: Infinity, easing: "ease-in-out" });
+      <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4700) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">På det tidspunkt var stock-foto industrien i starten af en revolution: De første online stock-foto websites begyndte at komme på markedet, men de store, etablerede spillere på markedet holdt lidt igen. Pierre så det for sig: “Om ganske få år er hele branchen digital, og dem der ikke hopper med på den digitale vogn, lukker.”</p>
+      <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4700) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Så Pierre gav sig selv en udfordring: At blive landets bedst sælgende stock-fotograf. Pierre lejede et gammelt, billigt erhvervslokale i Ishøj industri, fik fløjet billige skuespillere ind fra Polen og Baltikum, og fotograferede 10 timer om dagen.</p>
+      <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 4700) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierres profeti om stock-foto branchen holdt stik. Pierre var allerede en af landets bedst sælgende stock-fotografer, før han blev færdig med studiet på DMJX.</p>
+    </section>
 
-    //inview animation////////////////////////////////////////////
-    const slideLeft = document.querySelector(".slideLeft");
-    inView(slideLeft, ({ target }) => {
-      target.classList.add("animate__animated", "animate__rollIn", "animate__delay-1s");
-    });
+    <!-- horisontal scroll -->
+    <div class="max-w-2xl mx-auto overflow-clip pt-20">
+      <section id="horisontalscrollsection" class="h-[500vw]">
+        <ul id="horisontalliste" class="list-none pl-0 flex sticky top-[10vh] gap-24">
+          <li class="flex items-start justify-center overflow-hidden flex-shrink-0">
+            <figure class="flex flex-row max-w-[600px] w-[70vw]">
+              <Image src={pic2} class="w-full" alt="foto" />
+            </figure>
+          </li>
+          <li class="flex items-start justify-center overflow-hidden flex-shrink-0">
+            <figure class="flex flex-row max-w-[600px] w-[70vw]">
+              <Image src={pic1} class="w-full" alt="foto" />
+            </figure>
+          </li>
+          <li class="flex items-start justify-center overflow-hidden flex-shrink-0">
+            <figure class="flex flex-row max-w-[600px] w-[70vw]">
+              <Image src={pic3} class="w-full" alt="foto" />
+            </figure>
+          </li>
+          <li class="flex items-start justify-center overflow-hidden flex-shrink-0">
+            <figure class="flex flex-row max-w-[600px] w-[70vw]">
+              <Image src={pic4} class="w-full" alt="foto" />
+            </figure>
+          </li>
+          <li class="flex items-start justify-center overflow-hidden flex-shrink-0">
+            <figure class="flex flex-row max-w-[600px] w-[70vw]">
+              <Image src={pic5} class="w-full" alt="foto" />
+            </figure>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </section>
 
-    // stagger animation////////////////////////////////////////////
-    inView("#stagger", () => {
-      // 모든 staggeranimation 클래스 요소에 대해 애니메이션 적용
-      const elements = document.querySelectorAll(".staggeranimation");
-      elements.forEach((element, index) => {
-        animate(
-          element,
-          { opacity: [0, 1] }, // 애니메이션 속성
-          {
-            delay: index * 0.5, // 요소마다 지연 시간 설정
-            duration: 0.5, // 애니메이션 지속 시간
-          }
-        );
-      });
-    });
+  <!--5. section -->
+  <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6000) ? true : false" :class="{ 'bg-[#18a0da]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out pb-32 m-0">
+    <section id="enskillevej">
+      <div class="max-w-xl mx-auto pt-32 prose">
+        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-4xl">En skillevej</h2>
+        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierre tjente godt det følgende årti. Men stille og roligt begyndte billederne også at give ham kvalme. Han kunne ikke holde sit eget arbejde ud, og måtte finde et modsvar til alle de blankpolerede fotos. Noget han kunne lave med stolthed. Pierre bestluttede sig for at droppe stock-fotos, og vende tilbage til rødderne.</p>
+        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Han søgte inspiration i analog fotografering, i Lomo-bevægelsen, Glitch art og polaroid fotografering, og begyndte stille og roligt at skabe sig en ny stil - en stil med fokus på det uperfekte, og hvor der er et uforudsigeligt element i det at tage billeder.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto my-8 items-center prose" id="lydeffekt" x-data>
+        <audio x-ref="lydeffekt">
+          <source src="pop.mp3" type="audio/mpeg" />
+        </audio>
+        <a href="glitch.jpg" class="lightbox">
+          <!-- timelineanimation til billeder -->
+          <Image src={glitch} alt=" " class="my-0 timelineanimation" @click="$refs.lydeffekt.play()" id="timelineanimationimage" />
+          <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Glitch kunst</figcaption>
+        </a>
 
-    /* Timeline animation */ ///////////////////////////////////////////////
-    inView("#timelineanimationimage", () => {
-      const timelineanimation = [
-        [".timelineanimation", { transform: "translateX(-100%)" }, { duration: 0.5 }],
-        [".timelineanimation", { transform: "translateX(0)" }, { duration: 0.5 }],
-        [".timelineanimation", { filter: "blur(5px)" }, { duration: 0.2 }],
-        [".timelineanimation", { transform: "scale(0.5)" }, { duration: 0.5 }],
-        [".timelineanimation", { filter: "blur(0px)" }, { duration: 0.2 }],
-        [".timelineanimation", { transform: "scale(1)" }, { duration: 1 }],
-      ];
-      timeline(timelineanimation);
-    });
-    inView("#timelineanimationimage2", () => {
-      const timelineanimation = [
-        [".timelineanimation2", { transform: "translateX(100%)" }, { duration: 0.5 }],
-        [".timelineanimation2", { transform: "translateX(0)" }, { duration: 0.5 }],
-        [".timelineanimation2", { filter: "blur(5px)" }, { duration: 0.2 }],
-        [".timelineanimation2", { transform: "scale(0.5)" }, { duration: 0.5 }],
-        [".timelineanimation2", { filter: "blur(0px)" }, { duration: 0.2 }],
-        [".timelineanimation2", { transform: "scale(1)" }, { duration: 1 }],
-      ];
-      timeline(timelineanimation);
-    });
+        <div>
+          <a href="lomo-smena-17.jpg" class="lightbox">
+            <Image src={smena} alt="" class="my-0 timelineanimation2" id="timelineanimationimage2" @click="$refs.lydeffekt.play()" />
+            <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Dobbelteksponering med Smena</figcaption>
+          </a>
+        </div>
+      </div>
+      <div class="max-w-xl mx-auto prose">
+        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Pierre tog det endda så vidt at han ikke kun droppede at tage stock-fotos. Han fjernede også alle stock-fotos fra de tjenester, han solgte sine fotos hos. Han gik fra at være en god forretningsdrivende til at blive en vaskeægte boheme-type på rekordtid.</p>
+      </div>
+    </section>
+  </section>
 
-    /* inView & return */
-    inView(".inviewreturn", ({ target }) => {
-      animate(target, { rotate: [180, 0] }, { delay: 1, duration: 2 });
-      return () => {
-        animate(target, { rotate: 180 });
-      };
-    });
-  </script>
+  <!--6. section -->
+  <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 7000) ? true : false" :class="{ 'bg-[#d91ca4]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out py-32 m-0">
+    <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 7000) ? true : false" :class="{ 'border-[#ffffff]': scroll, 'border-black': !scroll }" class="max-w-4xl mx-auto py-32 prose border border-double p-8" id="fotoeksperimenter">
+      <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 7000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-2xl">Fotoeksperimenter</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 7000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">
+          <h3 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 7000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-xl">Analog fotografering</h3>
+          <p>Fotografering med gode, gammeldags filmruller. Analog fotografering stiger for tiden i popularitet, specielt blandt unge, og prisen på filmruller og vintage-kameraer skyder i vejret. Mange fotografer synes at film-fotografering er mere ægte har mere “sjæl.” Analog fotografering er langsommmere, hvert enkelt billede koster penge, og man bliver nødt til at overveje motiv og lys grundigere før der skydes - tænk før du trykker.</p>
+          <p>Analog fotografering kan gå galt mange steder i processen, og det giver også mulighed for at eksperimentere med “det uperfekte og uforudsigelige i processen.” Man kan f.eks. skyde på for gamle filmruller, arbejde med forskellige teknikker som “lens whacking” og filtre/ting foran objektivet, og man kan pille ved de kemiske processer under fremkaldelse af filmen.</p>
+        </div>
+        <div x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 7000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">
+          <h3 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 7000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-xl">Glitch art</h3>
+          <p>Når der sker en teknisk fejl i et medie/en kommunikationskanal kaldes det en glitch. Glitch art går ud på at dyrke fejlene for at skabe kunst. En meget typisk glitch er små analoge eller digitale fejl i farvegengivelsen af billeder.</p>
+          <p></p>
+        </div>
+        <div x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">
+          <h3 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 5500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-xl">Lomografi</h3>
+          <p>Et lomografi er egentlig bare et fotografi skudt uden videre omtanke, og med noget foto-udstyr af ret alternativ kvalitet. Lomografier skydes ofte på gode, gammeldags filmruller, men kan også skyde digitalt.</p>
+          <p>Det kan måske lyde lidt anti-fotograf-agtigt. Men en del foto-entusiaster dyrker den slags, og ser det som en foto-genre eller endda en livsstil.</p>
+        </div>
+        <section class="parallaxgrafik fullwidthsection">
+          <div class="mt-8 h-screen w-full bg-cover bg-center overflow-hidden">
+            <Image src={camera1} alt="" class="col-start-2 col-end-3 parallaxgrafik1" />
+            <Image src={filmrolle2} alt="" class="col-start-2 col-end-3 parallaxgrafik2" />
+            <Image src={filme3} alt="" class="col-start-3 col-end-4 parallaxgrafik3" />
+          </div>
+        </section>
+      </div>
+    </section>
+  </section>
+
+  <!--7. section -->
+  <section x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 8000) ? true : false" :class="{ 'bg-[#13a44d]': scroll, 'bg-white': !scroll }" class="transition-colors duration-500 ease-in-out py-32 m-0">
+    <section id="nybegyndelse">
+      <div class="max-w-xl mx-auto prose">
+        <h2 x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 8000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }" class="text-4xl">En ny begyndelse</h2>
+        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 8000) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Men Pierre er glad for sin beslutning. Indkomsten er lavere nu, men han har stadig lidt penge på kontoen, og studerer nu kunstfotografering på fotoskolen Fatamorgana. Han glæder sig over hver dags kunstneriske eksperimenter, og er for første gang i sit liv rigtig stolt af sit arbejde. Som Pierre selv udtrykker det: <span class="italic">“Det interessante ligger i fejlen. Et foto med masser af fejl er interessant. Jeg eksperimenterer med udstyr og teknik, og skaber nye visuelle udtryk. Det uperfekte er perfekt.”</span></p>
+      </div>
+      <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto my-8 items-center prose" id="lydeffekt" x-data>
+        <!-- lydeffekt når man klikker billeder -->
+
+        <audio x-ref="lydeffekt">
+          <source src="pop.mp3" type="audio/mpeg" />
+        </audio>
+        <!-- Zoomin animation når man er scrolling -->
+        <a href="over-out-icm.jpeg" class="lightbox scrollzoom overflow-clip" @click="$refs.lydeffekt.play()">
+          <Image src={overouticm} alt="picture" class="my-0 scrollzoomimg" />
+          <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Overeksponeret og ude af fokus</figcaption>
+        </a>
+        <div>
+          <a href="tynd-film.jpg" class="lightbox scrollzoom overflow-clip" @click="$refs.lydeffekt.play()">
+            <Image src={tyndfilm} alt="" class="my-0 scrollzoomimg" />
+            <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Tynd film</figcaption>
+          </a>
+        </div>
+      </div>
+
+      <div class="max-w-xl mx-auto my-32 prose">
+        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Karrieren begynder også så småt også at gå den rette vej: Pierre er begyndt at sælge fotokunst på nettet, og har udgivet sin første foto-bog med titlen “Lidt i fem,” som er en fotografisk odyssé om at slæbe en brandert hjem i de tidlige morgentimer. I forbindelse med udgivelsen af bogen, har han en udstilling på vej i det Kongelige Biblioteks fotoudstilling.</p>
+        <p x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ 'text-[#ffffff]': scroll, 'text-black': !scroll }">Som Pierre forklarer det: <span class="italic">“Nu kan jeg leve livet igen. Jeg føler mig frisk. Jeg føler mig fri. Jeg føler mig genfødt.”</span></p>
+        <div id="lydeffekt" x-data>
+          <audio x-ref="lydeffekt">
+            <source src="pop.mp3" type="audio/mpeg" />
+          </audio>
+
+          <a href="lidtifem-pierre-falcke.jpg" class="lightbox" alt="book">
+            <Image src={lidtifem} alt="" class="my-0 inviewreturn" @click="$refs.lydeffekt.play()" />
+            <figcaption x-data="{ scroll: false }" @scroll.window="scroll = (window.pageYOffset > 6500) ? true : false" :class="{ ' text-[#ffffff]': scroll, 'text-black': !scroll }">Lidt i fem - ny bog af Pierre Falcke</figcaption>
+          </a>
+        </div>
+      </div>
+    </section>
+  </section>
 </MainLayout>
+
+<script is:inline src="/tobii.min.js"></script>
+
+<script defer>
+  const tobii = new Tobii();
+
+  //Video hover rotation////////////////////////////////////////////////
+  const video = document.querySelector(".random-rotate-video");
+
+  video.addEventListener("mouseover", function () {
+    // Generate a random angle between -5 and 5 degrees
+    const randomAngle = Math.random() * 10 - 5;
+
+    // Apply the random rotation
+    video.style.transform = `rotate(${randomAngle}deg)`;
+  });
+
+  video.addEventListener("mouseleave", function () {
+    // Reset the rotation when hover ends
+    video.style.transform = "rotate(0deg)";
+  });
+</script>
+
+<script>
+  //Progress bar animation///////////////////////////////////////////////
+  import { inView, animate, scroll, timeline } from "motion";
+  scroll(animate(".progress", { strokeDasharray: ["0,1", "1,1"] }));
+
+  //entrance animation//////////////////////////////////////////////////
+  animate("body", { opacity: [0, 1] }, { duration: 1 });
+
+  //entrance animation med lidt mere konplekse///////////////////////////
+  animate(".mereanimate", { opacity: [0, 1, 0.8, 1], scale: [0.3, 1], y: [0, -10, 0, 10, 0], x: [0, -20, 0, 20, 0], rotate: [0, 360], filter: ["blur(0px)", "blur(5px)", "blur(0px)"] }, { delay: 1.5, duration: 3, direction: "alternate", repeat: Infinity, easing: "ease-in-out" });
+
+  //inview animation////////////////////////////////////////////
+  const slideLeft = document.querySelectorAll(".slideLeft");
+  inView(slideLeft, ({ target }) => {
+    target.classList.add("animate__animated", "animate__rollIn", "animate__delay-1s");
+  });
+
+  // stagger animation////////////////////////////////////////////
+  inView("#stagger", () => {
+    // 모든 staggeranimation 클래스 요소에 대해 애니메이션 적용
+    const elements = document.querySelectorAll(".staggeranimation");
+    elements.forEach((element, index) => {
+      animate(
+        element,
+        { opacity: [0, 1] }, // 애니메이션 속성
+        {
+          delay: index * 0.5, // 요소마다 지연 시간 설정
+          duration: 0.5, // 애니메이션 지속 시간
+        }
+      );
+    });
+  });
+
+  /* Timeline animation */ ///////////////////////////////////////////////
+  inView("#timelineanimationimage", () => {
+    const timelineanimation = [
+      [".timelineanimation", { transform: "translateY(50%)" }, { duration: 0.5 }],
+      [".timelineanimation", { transform: "translateY(0)" }, { duration: 0.5 }],
+      [".timelineanimation", { opacity: 0 }, { duration: 0.5 }],
+      [".timelineanimation", { opacity: 1 }, { duration: 0.5 }],
+      [".timelineanimation", { transform: "scale(0.5)" }, { duration: 0.5 }],
+      [".timelineanimation", { transform: "rotate(180deg)" }, { duration: 0.5 }],
+      [".timelineanimation", { transform: "scale(1)" }, { duration: 0.5 }],
+      [".timelineanimation", { boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)" }, { duration: 0.5 }],
+    ];
+    timeline(timelineanimation);
+  });
+  inView("#timelineanimationimage2", () => {
+    const timelineanimation2 = [
+      [".timelineanimation2", { transform: "translateY(-20%)" }, { duration: 0.5 }],
+      [".timelineanimation2", { transform: "translateY(0)" }, { duration: 0.5 }],
+      [".timelineanimation2", { opacity: 0 }, { duration: 0.5 }],
+      [".timelineanimation2", { opacity: 1 }, { duration: 0.5 }],
+      [".timelineanimation2", { transform: "scale(0.5)" }, { duration: 0.5 }],
+      [".timelineanimation2", { transform: "rotate(-180deg)" }, { duration: 0.5 }],
+      [".timelineanimation2", { transform: "scale(1)" }, { duration: 0.5 }],
+      [".timelineanimation2", { boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.5)" }, { duration: 0.5 }],
+    ];
+
+    timeline(timelineanimation2);
+  });
+
+  /* inView & return */
+  inView(".inviewreturn", ({ target }) => {
+    animate(target, { rotate: [180, 0] }, { delay: 1, duration: 2 });
+    return () => {
+      animate(target, { rotate: 180 });
+    };
+  });
+
+  //Stickyparallax tekst animation////////////////////////////////////////////
+  scroll(animate(".stickyparallax1", { y: [-300, 0] }), {
+    target: document.querySelector(".stickyparallax1"),
+  });
+
+  /* Mange elementer der animerer ind */
+  inView(".mangeelementerinview", () => {
+    animate(".mangeelementer1", { x: [-2000, 0], y: [-50, 0] }, { duration: 1 });
+    animate(".mangeelementer2", { x: [-1500, 0], y: [-100, 0] }, { duration: 3 });
+    animate(".mangeelementer3", { x: [-1000, 0], y: [-150, 0] }, { duration: 3 });
+
+    return () => {
+      animate(".mangeelementer1", { x: [-2000, 0], y: [-50, 0] }, { duration: 1 });
+      animate(".mangeelementer2", { x: [-1500, 0], y: [-100, 0] }, { duration: 3 });
+      animate(".mangeelementer3", { x: [-1000, 0], y: [-150, 0] }, { duration: 3 });
+    };
+  });
+
+  /* Horisontal scroll sektion */
+  scroll(
+    animate("#horisontalliste", {
+      transform: ["none", "translateX(-500vw)"],
+    }),
+    { target: document.querySelector("#horisontalscrollsection") }
+  );
+  /* Scroll zoom sektion */
+  scroll(
+    animate(".scrollzoomimg", {
+      scale: [1, 1.5],
+    }),
+    {
+      target: document.querySelector(".scrollzoom"),
+      offset: ["0.75 end", "end end"],
+    }
+  );
+</script>
